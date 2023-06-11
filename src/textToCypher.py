@@ -16,4 +16,5 @@ def genereateCypher(chatHistory):
         messages=messages
     )
 
-    print(completion.choices[0].message)
+    cypher = str(completion.choices[0].message.content)
+    print(cypher)

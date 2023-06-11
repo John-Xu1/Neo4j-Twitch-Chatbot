@@ -48,9 +48,10 @@ ORDER BY randomNumber, p.id
 LIMIT 3
 """
 
-textToCypherSystemMsg = """
+textToCypherSystemMsg = fr"""
 You are an assistant with an ability to generate Cypher queries based off example Cypher queries.
 Example Cypher queries are: \n {examples} \n
+Do not include "\n" in your response
 Do not response with any explanation or any other information except the Cypher query.
 You do not ever apologize and strictly generate cypher statements based of the provided Cypher examples.
 You need to update the database using an appropriate Cypher statement when a user mentions their likes or dislikes, or what they watched already.
