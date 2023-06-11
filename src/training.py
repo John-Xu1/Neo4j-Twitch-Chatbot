@@ -1,22 +1,51 @@
 examples = """
 # Who is a good streamer that plays Minecraft?
-
+MATCH (s:Stream)-[p:PLAYS]->(g:Game {name: 'Minecraft'})
+WITH s,p,  rand() AS randomNumber
+RETURN {name:s.name} as result
+ORDER BY randomNumber, p.id
+LIMIT 1
 # Who is a good streamer that does art?
-
+MATCH(s:Stream)-[p:PLAYS]->(a:Game {name:"Art"})
+WITH s,p,  rand() AS randomNumber
+RETURN {name:s.name} as result
+ORDER BY randomNumber, p.id
+LIMIT 1
 # How many followers does 39daph have?
-
+MATCH(s:Stream {name:"39daph"})
+RETURN {name:s.name,followers:s.followers}
 # Reccomend a good spanish streamer
-
+MATCH (s:Stream)-[p:HAS_LANGUAGE]->(l:Language {name: 'es'})
+WITH s,p,  rand() AS randomNumber
+RETURN {name:s.name} as result
+ORDER BY randomNumber, p.id
+LIMIT 1
 # What is the link to Ludwig's channel?
-
+MATCH(s:Stream {name:"ludwig"})
+RETURN {name:s.name,link:s.url} as result
 # What does summit1g do on stream?
-
+MATCH(s:Stream {name:"summit1g"})
+RETURN {name:s.name,whatTheyDo:s.description} as result
 # What streamers belong to Cloud9?
-
+MATCH(s:Stream) -[p:HAS_TEAM]->(t:Team{name:"Cloud9"})
+WITH s,p,t,  rand() AS randomNumber
+RETURN {name:s.name,team:t.name} as result
+ORDER BY randomNumber, p.id
+LIMIT 3
 # Who are some other users that follow itsbigchase?
-
-# Who are some VIP members of stylishnoob4?
-
+MATCH (u:User) -[p:CHATTER]-> (s:Stream {name:"itsbigchase"})
+WHERE NOT (u:Stream)
+WITH u,p,s,  rand() AS randomNumber
+RETURN {user:u.name} as result
+ORDER BY randomNumber, p.id
+LIMIT 3
+# Who are some VIP members of Stanz?
+MATCH(u:User)-[p:VIP]->(s:Stream {name: "stanz"})
+WHERE NOT (u:Stream)
+WITH u,p,s,  rand() AS randomNumber
+RETURN {vip:u.name} as result
+ORDER BY randomNumber, p.id
+LIMIT 3
 """
 
 textToCypherSystemMsg = """
