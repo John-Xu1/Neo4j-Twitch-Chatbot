@@ -18,3 +18,4 @@ def genereateCypher(chatHistory):
 
     cypher = str(completion.choices[0].message.content)
     print(cypher)
+    return cypher

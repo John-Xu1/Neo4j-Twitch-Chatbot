@@ -17,4 +17,5 @@ def generateResponse(chatHistory):
         messages=messages,
         temperature=0.0
     )
-    response = completion.choices[0].message
+    response = completion.choices[0].message.content
+    return response
